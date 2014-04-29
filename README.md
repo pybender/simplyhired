@@ -4,7 +4,7 @@
 
 Simply Hired Job-a-matic library aims at making it easy to add job listings to your website using simply PHP objects and method calls. The library supports both the XML and JSON API's.
 
-This is an initial port from the [Drupal module](https://drupal.org/project/simply_hired_job_a_matic) and [Wordpress plugin](http://wordpress.org/plugins/sh-jobamatic/) code to form a single library that can be used across multiple projects without maintaining duplicate code. The code is not well documented at this point but will be improving daily until complete. However, the library uses very well documented design patters and a documented API, so it is not the difficult to use in the short term.
+This is an initial port from the [Drupal module](https://drupal.org/project/simply_hired_job_a_matic) and [Wordpress plugin](http://wordpress.org/plugins/sh-jobamatic/) code to form a single library that can be used across multiple projects without maintaining duplicate code. The code is not well documented at this point but will be improving daily until complete. However, the library uses very well documented design patterns and a documented API, so it is not the difficult to use in the short term.
 
 ## Requirements
 

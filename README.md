@@ -4,6 +4,8 @@
 
 Simply Hired Job-a-matic library aims at making it easy to add job listings to your website using simply PHP objects and method calls. The library supports both the XML and JSON API's.
 
+This is an initial port from the Drupal and Wordpress module code to form a single library that can be used across multiple projects without maintaining duplicate code. The code is not well documented at this point but will be improving daily until complete. However, the library uses very well documented design patters and a documented API, so it is not the difficult to use in the short term.
+
 ## Requirements
 
 To use the API, you must first create a [free partner job board](https://www.jobamatic.com/a/jbb/partner-register-account). Once you have created your job board, you can then access the XML API tag from the portal dashboard which contains your publisher ID and Job-a-matic domain -- both of which are needed for all API calls.

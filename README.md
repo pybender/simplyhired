@@ -2,21 +2,33 @@
 
 ## Overview
 
-Simply Hired Job-a-matic is a great way to earn additional revenue from your
-existing website and provide valuable content for your users with a free hosted
-job board. The Job-a-matic module uses SimplyHired's XML API to display job
-postings from their database directly within your Drupal site.
+Simply Hired Job-a-matic library aims at making it easy to add job listings to your website using simply PHP objects and method calls. The library supports both the XML and JSON API's.
 
-## Requirements and Restrictions
+## Requirements
 
-### Restrictions
+To use the API, you must first create a [free partner job board](https://www.jobamatic.com/a/jbb/partner-register-account). Once you have created your job board, you can then access the XML API tag from the portal dashboard which contains your publisher ID and Job-a-matic domain -- both of which are needed for all API calls.
+
+## Features
+
+The SimplyHired Job-a-matic library attempts to support the full set of features available from the API. The current features include
+
+* support for job listings available in 24 countries (see your job portal for the complete listing)
+* results pagination
+* use complex search queries including boolean, location (city/state or postal code), search radius, etc.
+
+## Limitations
+
+The JSON API is not as robust as the XML API and therefore the data returned is missing several of the extended pieces of data for a job and for the search query recordset itself. This library attempts to correct these inconsistancies in the API's, but some functionality will be reduced when using the JSON API.
+
+
+## Attribution
 
 The SimplyHired Terms of Service requires that an attribution be displayed on
-any page that contains SimplyHired data. This can be disabled in the module
-configuration, but by doing so, you knowingly violate the
-[SimplyHired Terms of Service Agreement](www.jobamatic.com/jbb-static/terms-of-service).
+any page or screen that contains SimplyHired data. See the
+[SimplyHired Terms of Service Agreement](www.jobamatic.com/jbb-static/terms-of-service) for
+complete terms of service.
 
-The following code must be used anywhere jobs data is displayed.
+The following code must be used anywhere SimplyHired jobs data is displayed.
 
     <div style="text-align: right;">
       <span style="font-size:10px; position:relative; top:-5px; font-family:Arial,sans-serif;color: rgb(51, 51, 51);">
@@ -27,10 +39,56 @@ The following code must be used anywhere jobs data is displayed.
       </a>
     </div>
 
-## Classes
+## About SimplyHired
 
-## API Types
+**From the SimplyHired "About Us" page.**
 
-### Job Object using the XML API
+_Simply Hired, a technology company based in Sunnyvale, California, operates job search engines in 24 countries and 12 languages. With more than 30 million unique visitors per month, the company provides job seekers access to millions of job openings across all job categories and industries, reaching job seekers on the web, social networks, mobile devices, email, and via thousands of partner sites including LinkedIn, The Washington Post, and Bloomberg Businessweek. With its Sponsored Jobs offering, Simply Hired enables employers to efficiently and cost-effectively reach candidates searching for jobs through its full-service pay-per-click (PPC) and self-service pay-per-post job advertising solutions. Simply Hired was founded in 2005, has offices in Sunnyvale, Los Angeles, New York and Toronto, and is privately held with funding from Foundation Capital and IDG Ventures. For more information, visit [www.simplyhired.com](http://www.simplyhired.com)._
 
-### Job Object using the JSON API
+## Reference
+
+### Classes
+
+**SimplyHiredAPI** - Main class responsible for executing all API calls.
+
+**SimplyHiredAPIParserFactory** - Generates the API data parser (XML or JSON) to parse the data returned by the API calls.
+
+**SimplyHiredAPIAbstractParser** - Abstract data parser which must be overriden by child classes to implement the _parse()_ method.
+
+**SimplyHiredAPIJSONParser** - JSON data parser object.
+
+**SimplyHiredAPIXMLParser** - XML data parser object (default parser).
+
+**SimplyHiredJob** - Job object created by parsers to represent a job.
+
+### Usage
+
+**Requirements**
+
+To use the SimplyHiredAPI object, you must include the _SimplyHiredAPI.class.php_ file in your PHP script. It is best to use the PHP _require_ or _require_once_ construct such as the following:
+
+    <?php
+    
+      require_once {path_to_library}/SimplyHiredAPI.class.php;
+      
+      other php code ...
+      
+    ?>
+
+**Basic usage**
+
+The very minimal usage of the library, you will need to create a variable to hold the API object to run job search queries with. The following demonstrates that basic usage.
+
+    <?php
+    
+      require_once {path_to_library}/SimplyHiredAPI.class.php;
+      
+      $api = new SimplyHiredAPI('publisher_id', 'jobamatic_domain');
+      
+      $api->search('PHP AND developer AND NOT (ASP OR Microsoft)');
+      
+      other php code ...
+      
+    ?>
+    
+The publisher_id and jobamatic_domain parameters in the SimplyHiredAPI constructor are assigned to you when  you signed up for your Job-a-matic account. See the Job-a-matic partner portal for this information.

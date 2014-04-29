@@ -85,10 +85,25 @@ The very minimal usage of the library, you will need to create a variable to hol
       
       $api = new SimplyHiredAPI('publisher_id', 'jobamatic_domain');
       
-      $api->search('PHP AND developer AND NOT (ASP OR Microsoft)');
+      // Set the client IP address.
+      $api->setClip($_SERVER['REMOTE_ADDR']);
+      
+      // Execute a job search query and store the results in a variable.
+      $results = $api->search('PHP AND developer AND NOT (ASP OR Microsoft)');
       
       other php code ...
       
     ?>
     
 The publisher_id and jobamatic_domain parameters in the SimplyHiredAPI constructor are assigned to you when  you signed up for your Job-a-matic account. See the Job-a-matic partner portal for this information.
+
+**Search Results**
+
+The job search results are returned as an associative array with the following keys:
+
+* **title** - The title of the job search. (If using the JSON API, the title will always be 'Search Results' as this information is not provided by the API.)
+* **start_index** - The starting index for the search query; used for pagination
+* **num_results** - The number of job listings per page.
+* **total_results** - The total number of results returned by the search query.
+* **total_visible** - The total number of results available through API calls; this will most always be less than the _total_results_ key.
+* **items** - An indexed array of SimplyHiredJob objects representing each individual job.

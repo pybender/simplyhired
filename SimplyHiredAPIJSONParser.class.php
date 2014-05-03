@@ -9,7 +9,6 @@ class SimplyHiredAPIJSONParser extends SimplyHiredAPIAbstractParser {
 
   public function setData($data) {
     $this->data = json_decode($data);
-    $this->parse();
   }
 
   public function parse() {

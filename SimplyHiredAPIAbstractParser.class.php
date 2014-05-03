@@ -17,6 +17,7 @@ abstract class SimplyHiredAPIAbstractParser implements SimplyHiredAPIParser {
   public function __construct($data=NULL) {
     if (!empty($data)) {
       $this->setData($data);
+      $this->parse();
     }
   }
 
@@ -24,14 +25,11 @@ abstract class SimplyHiredAPIAbstractParser implements SimplyHiredAPIParser {
     return $this->results;
   }
 
-  public function setData($data) {
-    $this->data = $data;
-    $this->parse();
-  }
-
   public function getData() {
     return $this->data;
   }
+
+  public abstract function setData($data);
 
   public abstract function parse();
 

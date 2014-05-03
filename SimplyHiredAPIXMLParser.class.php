@@ -8,8 +8,16 @@ require_once dirname(__FILE__) . '/SimplyHiredAPIAbstractParser.class.php';
 
 class SimplyHiredAPIXMLParser extends SimplyHiredAPIAbstractParser {
 
+  public function setData($data) {
+    try {
+      $this->data = simplexml_load_string($data);
+    } catch (Exception $e) {
+      $this->data = FALSE;
+    }
+  }
+
   public function parse() {
-    $xml = @simplexml_load_string($this->data);
+    $xml = $this->data;
 
     if ($xml !== FALSE) {
       // No error tag.

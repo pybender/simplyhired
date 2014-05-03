@@ -6,8 +6,9 @@
  */
 
 require_once dirname(__FILE__) . '/SimplyHiredJob.class.php';
+require_once dirname(__FILE__) . '/SimplyHiredAPIParser.interface.php';
 
-abstract class SimplyHiredAPIAbstractParser {
+abstract class SimplyHiredAPIAbstractParser implements SimplyHiredAPIParser {
 
   protected $data;
 
@@ -32,6 +33,6 @@ abstract class SimplyHiredAPIAbstractParser {
     return $this->data;
   }
 
-  abstract function parse();
+  public abstract function parse();
 
 }

@@ -14,6 +14,12 @@ class SimplyHiredAPIParserFactory {
 
   public function __construct() {}
 
+  /**
+   * @param string $type XML or JSON.
+   * @param null $data the data to be parsed.
+   * @return array
+   * @throws Exception
+   */
   public static function getParser($type=self::XML, $data=NULL) {
 
     $parser = 'SimplyHiredAPI' . strtoupper($type) . 'Parser';

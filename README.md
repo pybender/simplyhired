@@ -51,9 +51,14 @@ _Simply Hired, a technology company based in Sunnyvale, California, operates job
 
 ### Classes
 
+![class diagram](./simplyhired_api-diag.jpg =600x)  
+[View full size](./simplyhired_api-diag.jpg)
+
 **SimplyHiredAPI** - Main class responsible for executing all API calls.
 
 **SimplyHiredAPIParserFactory** - Generates the API data parser (XML or JSON) to parse the data returned by the API calls.
+
+**SimplyHiredAPIParser** - Interface providing the _parse()_ method that all parsers must implement.
 
 **SimplyHiredAPIAbstractParser** - Abstract data parser which must be overriden by child classes to implement the _parse()_ method.
 
@@ -61,7 +66,7 @@ _Simply Hired, a technology company based in Sunnyvale, California, operates job
 
 **SimplyHiredAPIXMLParser** - XML data parser object (default parser).
 
-**SimplyHiredJob** - Job object created by parsers to represent a job.
+**SimplyHiredJob** - Job object created by parsers to represent a single job returned by SimplyHired API calls.
 
 ### Usage
 

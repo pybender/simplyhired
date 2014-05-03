@@ -51,8 +51,8 @@ _Simply Hired, a technology company based in Sunnyvale, California, operates job
 
 ### Classes
 
-![class diagram](./simplyhired_api-diag.jpg =600x)  
-[View full size](./simplyhired_api-diag.jpg)
+![class diagram](http://www.ronferguson.net/sites/default/files/simplyhired_api-diag.jpg =600x)  
+[View full size](http://www.ronferguson.net/sites/default/files/simplyhired_api-diag.jpg)
 
 **SimplyHiredAPI** - Main class responsible for executing all API calls.
 

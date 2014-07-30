@@ -164,6 +164,7 @@ class SimplyHiredAPI {
 
     if ($this->code != 200) {
       $this->error = $message;
+      $data = FALSE;
     }
     else {
       $this->parser->setData($data);

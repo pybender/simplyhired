@@ -167,8 +167,7 @@ class SimplyHiredAPI {
     }
     else {
       $this->parser->setData($data);
-      $results = $this->parser->parse();
-      var_dump($results);exit;
+      $data = $this->parser->parse();
     }
 
     return $data;

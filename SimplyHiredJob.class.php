@@ -241,6 +241,9 @@ class SimplyHiredJob {
 
   public function setExerpt($text) {
     $this->excerpt = trim($text);
+    if (substr($this->excerpt, strlen($this->excerpt)-1) == '>') {
+      $this->excerpt = substr($this->excerpt, 0, strlen($this->excerpt)-1);
+    }
   }
 
   public function getExerpt() {

@@ -53,7 +53,7 @@ class SimplyHiredAPI {
     $this->error = FALSE;
     $this->code = NULL;
     $this->returnerrors = $returnerrors;
-    $this->mode = $mode;
+    $this->mode = strtoupper($mode);
     $this->parser = SimplyHiredAPIParserFactory::getParser($this->mode, NULL);
     $this->source = strtolower(trim($source));
 
@@ -84,7 +84,7 @@ class SimplyHiredAPI {
   /**
    * Prepare and call Jobamatic search service.
    */
-  public function search($query, $location = '', $miles = 5, $sort = 'rd', $size = 10, $page = 0) {
+  public function search($query, $frag=1, $location = '', $miles = 5, $sort = 'rd', $size = 10, $page = 0) {
     $params = array(
       'q' => urlencode(trim($query)),
       'sb' => $sort,
@@ -100,7 +100,7 @@ class SimplyHiredAPI {
       $params['m'] = $miles;
     }
 
-    $results = $this->call($params);
+    $results = $this->call($params, $frag);
 
     return $results;
   }
@@ -110,7 +110,7 @@ class SimplyHiredAPI {
    *
    * @access protected
    */
-  protected function call($criteria) {
+  protected function call($criteria, $frag_only=1) {
     if (empty($this->clip)) {
       throw new Exception('Client IP address can not be empty. Please set the client IP using SimplyHiredAPI::setClip(\'IP address\').');
       exit;
@@ -125,11 +125,16 @@ class SimplyHiredAPI {
 
     $params = array(
       'pshid' => $this->pshid,
-      'jbd' => $this->jbd,
+      'auth' => $this->auth_key,
       'ssty' => $this->ssty,
       'clip' => $this->clip,
       'cflg' => $this->cflg,
     );
+
+    if (!$frag_only) {
+      $params['frag'] = 'false';
+    }
+
     $param_string = array();
     foreach ($params as $key => $value) {
       $param_string[] = $key . '=' . $value;
@@ -173,6 +178,8 @@ class SimplyHiredAPI {
       $this->parser->setData($data);
       $data = $this->parser->parse();
     }
+
+    var_dump($data);exit;
 
     return $data;
   }

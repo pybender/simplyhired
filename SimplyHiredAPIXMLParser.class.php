@@ -33,7 +33,6 @@ class SimplyHiredAPIXMLParser extends SimplyHiredAPIAbstractParser {
         );
 
         $record_set = $xml->rs;
-
         $idx = 1;
         /*
          * Create an object out of each of the XML recordset records

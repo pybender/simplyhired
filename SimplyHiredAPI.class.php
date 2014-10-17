@@ -28,6 +28,7 @@ class SimplyHiredAPI {
    */
   protected $parser;
   protected $pshid;
+  protected $auth_key;
   protected $jbd;
   protected $ssty;
   protected $cflg;
@@ -39,14 +40,14 @@ class SimplyHiredAPI {
   /**
    * Constructor.
    */
-  public function __construct($pshid, $jbd, $mode = 'xml', $source='us', $returnerrors = FALSE) {
+  public function __construct($pshid, $auth_key, $mode = 'xml', $source='us', $returnerrors = FALSE) {
     $mode = trim(strtolower($mode));
     if ($mode != 'json' && $mode != 'xml') {
       $mode = 'xml';
     }
 
     $this->pshid = $pshid;
-    $this->jbd = $jbd;
+    $this->auth_key = trim($auth_key);
     $this->ssty = 2;
     $this->cflg = 'r';
     $this->error = FALSE;
@@ -55,6 +56,8 @@ class SimplyHiredAPI {
     $this->mode = $mode;
     $this->parser = SimplyHiredAPIParserFactory::getParser($this->mode, NULL);
     $this->source = strtolower(trim($source));
+
+    $this->setClip($_SERVER['REMOTE_ADDR']);
   }
 
   /**

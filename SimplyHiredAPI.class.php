@@ -84,7 +84,7 @@ class SimplyHiredAPI {
   /**
    * Prepare and call Jobamatic search service.
    */
-  public function search($query, $frag=1, $location = '', $miles = 5, $sort = 'rd', $size = 10, $page = 0) {
+  public function search($query, $frag=TRUE, $location = '', $miles = 5, $sort = 'rd', $size = 10, $page = 0) {
     $params = array(
       'q' => urlencode(trim($query)),
       'sb' => $sort,
@@ -110,7 +110,7 @@ class SimplyHiredAPI {
    *
    * @access protected
    */
-  protected function call($criteria, $frag_only=1) {
+  protected function call($criteria, $frag_only=TRUE) {
     if (empty($this->clip)) {
       throw new Exception('Client IP address can not be empty. Please set the client IP using SimplyHiredAPI::setClip(\'IP address\').');
       exit;
@@ -178,8 +178,6 @@ class SimplyHiredAPI {
       $this->parser->setData($data);
       $data = $this->parser->parse();
     }
-
-    var_dump($data);exit;
 
     return $data;
   }

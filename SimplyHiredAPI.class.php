@@ -1,10 +1,12 @@
 <?php
 /**
  * @file
- * SimplyHired's Job-a-matic REST API implementation.
+ * SimplyHired's REST API implementation.
+ * 
+ * Version 2
  *
- * Executes calls to SimplyHired's Job-a-matic API and returns
- * formatted results for use within Drupal.
+ * Executes calls to SimplyHired's API and returns
+ * formatted results.
  */
 
 define('SIMPLYHIRED_XML_PARSERERROR', 1001);

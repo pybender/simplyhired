@@ -7,7 +7,9 @@
  * formatted results for use within Drupal.
  */
 
-define('JOBAMATIC_XML_PARSERERROR', 1001);
+define('SIMPLYHIRED_XML_PARSERERROR', 1001);
+define('FSR_PRIMARY', 'primary');
+define('FSR_JOB_BOARD', 'job_board');
 
 require_once dirname(__FILE__) . '/SimplyHiredAPIParserFactory.class.php';
 
@@ -36,6 +38,7 @@ class SimplyHiredAPI {
   protected $error;
   protected $code;
   protected $returnerrors;
+  protected $url;
 
   /**
    * Constructor.
@@ -48,7 +51,7 @@ class SimplyHiredAPI {
 
     $this->pshid = $pshid;
     $this->auth_key = trim($auth_key);
-    $this->ssty = 2;
+    $this->ssty = ($source == 'us') ? 2 : 3;
     $this->cflg = 'r';
     $this->error = FALSE;
     $this->code = NULL;
@@ -56,8 +59,13 @@ class SimplyHiredAPI {
     $this->mode = strtoupper($mode);
     $this->parser = SimplyHiredAPIParserFactory::getParser($this->mode, NULL);
     $this->source = strtolower(trim($source));
+    $this->url = NULL;
 
     $this->setClip($_SERVER['REMOTE_ADDR']);
+  }
+  
+  public function getURL() {
+    return $this->url;
   }
 
   /**
@@ -80,17 +88,29 @@ class SimplyHiredAPI {
   public function getError() {
     return $this->error;
   }
+  
+  public function setSource($source) {
+    $this->source = trim($source);
+  }
+  
+  public function getSource() {
+    return $this->source;
+  }
 
   /**
    * Prepare and call Jobamatic search service.
    */
-  public function search($query, $frag=TRUE, $location = '', $miles = 5, $sort = 'rd', $size = 10, $page = 0) {
+  public function search($query, $frag = TRUE, $location = '', $miles = 5, $sort = 'rd', $type = '', $size = 10, $page = 0) {
     $params = array(
       'q' => urlencode(trim($query)),
       'sb' => $sort,
       'ws' => $size,
       'pn' => (intval($page) < 1 ? 0 : intval($page)),
     );
+    
+    if (!empty($type) && $type == FSR_PRIMARY || $type == FSR_JOB_BOARD) {
+      $params['fsr'] = $type;
+    }
 
     if (!is_null($location) && $location != '') {
       $params['l'] = $location;
@@ -116,7 +136,9 @@ class SimplyHiredAPI {
       exit;
     }
     $data = FALSE;
+    
     $url = 'http://' . $this->getAPIBase() . '/a/jobs-api/' . ($this->mode == 'json' ? 'json' : 'xml-v2') . '/%s?';
+    
     $api_identity = array();
 
     foreach ($criteria as $key => $value) {
@@ -142,6 +164,7 @@ class SimplyHiredAPI {
 
     $url .= implode('&', $param_string);
     $url = sprintf($url, implode('/', $api_identity));
+    $this->url = $url;
 
     $code = 0;
     $message = 'No matches found.';

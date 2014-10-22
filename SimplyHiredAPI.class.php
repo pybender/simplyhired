@@ -33,7 +33,6 @@ class SimplyHiredAPI {
   protected $parser;
   protected $pshid;
   protected $auth_key;
-  protected $jbd;
   protected $ssty;
   protected $cflg;
   protected $clip;
@@ -109,8 +108,10 @@ class SimplyHiredAPI {
       'ws' => $size,
       'pn' => (intval($page) < 1 ? 0 : intval($page)),
     );
+		
+		$type = trim($type);
     
-    if (!empty($type) && $type == FSR_PRIMARY || $type == FSR_JOB_BOARD) {
+    if (!empty($type) && ($type == FSR_PRIMARY || $type == FSR_JOB_BOARD)) {
       $params['fsr'] = $type;
     }
 

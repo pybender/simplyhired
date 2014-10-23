@@ -62,7 +62,6 @@ _Simply Hired, a technology company based in Sunnyvale, California, operates job
 
 ### Classes
 
-__NOTE:__ _This class diagram has not yet been updated from 1.x. While most of it remains valid, there are some new properties and methods for the SimplyHiredAPI and SimplyHiredJob classes._
 
 ![class diagram](https://raw.githubusercontent.com/r0nn1ef/simplyhired/1.x/simplyhired_api-diag.jpg) 
 [View full size image](https://raw.githubusercontent.com/r0nn1ef/simplyhired/1.x/simplyhired_api-diag.jpg)

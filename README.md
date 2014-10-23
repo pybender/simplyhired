@@ -1,18 +1,18 @@
-# SimplyHired Job-a-matic
+# SimplyHired API Library
 
 ## Overview
 
-Simply Hired Job-a-matic library aims at making it easy to add job listings to your website using simply PHP objects and method calls. The library supports both the XML and JSON API's.
+Simply Hired library aims at making it easy to add job listings to your website using simply PHP objects and method calls. The library supports both the XML and JSON API's.
 
 This is an initial port from the [Drupal module](https://drupal.org/project/simply_hired_job_a_matic) and [Wordpress plugin](http://wordpress.org/plugins/sh-jobamatic/) code to form a single library that can be used across multiple projects without maintaining duplicate code. The code is not well documented at this point but will be improving daily until complete. However, the library uses very well documented design patterns and a documented API, so it is not the difficult to use in the short term.
 
 ## Requirements
 
-To use the API, you must first create a [free partner job board](https://www.jobamatic.com/a/jbb/partner-register-account). Once you have created your job board, you can then access the XML API tag from the portal dashboard which contains your publisher ID and Job-a-matic domain -- both of which are needed for all API calls.
+To use the API, you must first create a [free partner job board](http://www.simply-partner.com/). Once you have created your job board, you can then access the XML API tab from the portal dashboard which contains your publisher ID and API key -- both of which are needed for all API calls.
 
 ## Features
 
-The SimplyHired Job-a-matic library attempts to support the full set of features available from the API. The current features include
+The SimplyHired library attempts to support the full set of features available from the API. The current features include
 
 * support for job listings available in 24 countries (see your job portal for the complete listing)
 * results pagination
@@ -27,19 +27,30 @@ The JSON API is not as robust as the XML API and therefore the data returned is 
 
 The SimplyHired Terms of Service requires that an attribution be displayed on
 any page or screen that contains SimplyHired data. See the
-[SimplyHired Terms of Service Agreement](www.jobamatic.com/jbb-static/terms-of-service) for
+[SimplyHired Terms of Service Agreement](https://simply-partner.com/partner-terms/1) for
 complete terms of service.
 
 The following code must be used anywhere SimplyHired jobs data is displayed.
 
     <div style="text-align: right;">
-      <span style="font-size:10px; position:relative; top:-5px; font-family:Arial,sans-serif;color: rgb(51, 51, 51);">
-        <a style="color:#333;text-decoration:none" href="http://www.simplyhired.com/" rel="nofollow">Jobs</a> by
+       <span style="font-size:10px; position:relative; top:-5px; font-family:Arial,sans-serif;color: rgb(51, 51, 51);">
+         <a style="color:#333;text-decoration:none" href="http://www.simplyhired.com/" rel="nofollow">Jobs</a> by
       </span>
       <a STYLE="text-decoration:none" href="http://www.simplyhired.com/">
-        <img src="http://www.jobamatic.com/c/jbb/images/simplyhired.png" alt="Simply Hired">
+         <img src="http://www.simplyhired.com/c/jbb/images/simplyhired.png" alt="Simply Hired">
       </a>
     </div>
+
+Which produces the following:
+
+  <div style="text-align: right;">
+   <span style="font-size:10px; position:relative; top:-5px; font-family:Arial,sans-serif;color: rgb(51, 51, 51);">
+    <a style="color:#333;text-decoration:none" href="http://www.simplyhired.com/" rel="nofollow">Jobs</a> by
+   </span>
+   <a STYLE="text-decoration:none" href="http://www.simplyhired.com/">
+    <img src="http://www.simplyhired.com/c/jbb/images/simplyhired.png" alt="Simply Hired">
+   </a>
+  </div>
 
 ## About SimplyHired
 
@@ -51,8 +62,10 @@ _Simply Hired, a technology company based in Sunnyvale, California, operates job
 
 ### Classes
 
-![class diagram](https://github.com/r0nn1ef/simplyhired/raw/master/simplyhired_api-diag.jpg)  
-[View full size image](https://github.com/r0nn1ef/simplyhired/raw/master/simplyhired_api-diag.jpg)
+__NOTE:__ _This class diagram has not yet been updated from 1.x. While most of it remains valid, there are some new properties and methods for the SimplyHiredAPI and SimplyHiredJob classes._
+
+![class diagram](https://raw.githubusercontent.com/r0nn1ef/simplyhired/1.x/simplyhired_api-diag.jpg) 
+[View full size image](https://raw.githubusercontent.com/r0nn1ef/simplyhired/1.x/simplyhired_api-diag.jpg)
 
 **SimplyHiredAPI** - Main class responsible for executing all API calls.
 
@@ -75,34 +88,34 @@ _Simply Hired, a technology company based in Sunnyvale, California, operates job
 To use the SimplyHiredAPI object, you must include the _SimplyHiredAPI.class.php_ file in your PHP script. It is best to use the PHP _require_ or _require_once_ construct such as the following:
 
     <?php
-    
+  
       require_once {path_to_library}/SimplyHiredAPI.class.php;
-      
+   
       other php code ...
-      
+   
     ?>
 
 **Basic usage**
 
 The very minimal usage of the library, you will need to create a variable to hold the API object to run job search queries with. The following demonstrates that basic usage.
 
-    <?php
-    
-      require_once {path_to_library}/SimplyHiredAPI.class.php;
-      
-      $api = new SimplyHiredAPI('publisher_id', 'jobamatic_domain');
-      
-      // Set the client IP address.
-      $api->setClip($_SERVER['REMOTE_ADDR']);
-      
-      // Execute a job search query and store the results in a variable.
-      $results = $api->search('PHP AND developer AND NOT (ASP OR Microsoft)');
-      
-      other php code ...
-      
+     <?php
+  
+       require_once {path_to_library}/SimplyHiredAPI.class.php;
+   
+       $api = new SimplyHiredAPI('publisher_id', '__api_key__');
+   
+       // Set the client IP address.
+       $api->setClip($_SERVER['REMOTE_ADDR']);
+   
+       // Execute a job search query and store the results in a variable.
+       $results = $api->search('PHP AND developer AND NOT (ASP OR Microsoft)');
+   
+       other php code ...
+   
     ?>
-    
-The publisher_id and jobamatic_domain parameters in the SimplyHiredAPI constructor are assigned to you when  you signed up for your Job-a-matic account. See the Job-a-matic partner portal for this information.
+ 
+The publisher_id and jobamatic_domain parameters in the SimplyHiredAPI constructor are assigned to you when you signed up for your account. See the partner portal for this information.
 
 **Search Results**
 

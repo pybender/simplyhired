@@ -31,14 +31,51 @@ class SimplyHiredAPI {
    * Based on @see $mode, a data parser for the specific data type.
    */
   protected $parser;
+	/**
+	 * Publisher key
+	 * @var string $pshid
+	 */
   protected $pshid;
+	/**
+	 * API key provided by Simply Hired
+	 * @var string $auth_key
+	 */
   protected $auth_key;
+	/**
+	 * Required search parameter. Only known usage is some sort of flag when
+	 * making calls to other than the US api.
+	 * @var integer $ssty
+	 */
   protected $ssty;
+	/**
+	 * Unknown usage
+	 * @var string $cflg
+	 */
   protected $cflg;
+	/**
+	 * Client IP address
+	 * @var string $clip
+	 */
   protected $clip;
+	/**
+	 * Error message returned by API calls upon failure
+	 * @var string $error
+	 */
   protected $error;
+	/**
+	 * HTTP 1.1 status code of the API calls.
+	 * @var integer $code
+	 */
   protected $code;
+	/**
+	 * Whether the class will return errors or fail silently.
+	 * @var boolean $returnerrors
+	 */
   protected $returnerrors;
+	/**
+	 * The URL (including all parameters) that will be used for the current call.
+	 * @var string $url
+	 */
   protected $url;
 
   /**
@@ -65,6 +102,11 @@ class SimplyHiredAPI {
     $this->setClip($_SERVER['REMOTE_ADDR']);
   }
   
+	/**
+	 * Get the URL that will be used for the api call (inclding all parameters)
+	 * 
+	 * @return mixed
+	 */
   public function getURL() {
     return $this->url;
   }
@@ -90,10 +132,18 @@ class SimplyHiredAPI {
     return $this->error;
   }
   
+	/**
+	 * Set the API country to use for all calls.
+	 * @param string $source
+	 */
   public function setSource($source) {
     $this->source = trim($source);
   }
   
+	/**
+	 * Get the API country currently being used for all calls.
+	 * @return string
+	 */
   public function getSource() {
     return $this->source;
   }

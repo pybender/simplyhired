@@ -8,7 +8,7 @@ This is an initial port from the [Drupal module](https://drupal.org/project/simp
 
 ## Versions
 
- The Simply Hired PHP library has been split into two branches; 1.x and 2.x. The [1.x branch](tree/1.x) is for the __soon to be retired__ Job-a-matic&trade; API and the [2.x branch](tree/2.x) is for the new [Simply Hired Partner Solutions](http://www.simplypartner.com) service and each requires it's own set of API credentials.
+ The Simply Hired PHP library has been split into two branches; 1.x and 2.x. The [1.x branch](https://github.com/r0nn1ef/simplyhired/tree/master/1.x) is for the __soon to be retired__ Job-a-matic&trade; API and the [2.x branch](https://github.com/r0nn1ef/simplyhired/tree/2.x) is for the new [Simply Hired Partner Solutions](http://www.simplypartner.com) service and each requires it's own set of API credentials.
 
 
 ## About Simply Hired

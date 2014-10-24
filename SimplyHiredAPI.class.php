@@ -152,6 +152,7 @@ class SimplyHiredAPI {
    * Prepare and call Jobamatic search service.
    */
   public function search($query, $frag = TRUE, $location = '', $miles = 5, $sort = 'rd', $type = '', $size = 10, $page = 0) {
+		
     $params = array(
       'q' => urlencode(trim($query)),
       'sb' => $sort,
@@ -172,6 +173,10 @@ class SimplyHiredAPI {
     if (!is_null($location) && intval($miles) > 0) {
       $params['m'] = $miles;
     }
+		
+		if (!empty($page)) {
+			$params['pn'] = intval($page);
+		}
 
     $results = $this->call($params, $frag);
 

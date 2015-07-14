@@ -171,7 +171,7 @@ class SimplyHiredAPI {
     }
 
     if (!is_null($location) && intval($miles) > 0) {
-      $params['m'] = $miles;
+      $params['mi'] = $miles;
     }
 		
 		if (!empty($page)) {

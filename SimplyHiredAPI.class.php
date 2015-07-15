@@ -173,10 +173,10 @@ class SimplyHiredAPI {
     if (!is_null($location) && intval($miles) > 0) {
       $params['mi'] = $miles;
     }
-		
-		if (!empty($page)) {
-			$params['pn'] = intval($page);
-		}
+
+    if (!empty($page)) {
+      $params['pn'] = intval($page);
+    }
 
     $results = $this->call($params, $frag);
 

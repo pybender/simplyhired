@@ -150,32 +150,42 @@ class SimplyHiredAPI {
 
   /**
    * Prepare and call Jobamatic search service.
+   *
+   * @param $query string Search query
+   * @param $frag boolean Get only job fragments
+   * @param $options array Associative array of optional parameters to pass to the API call.
+   *        Valid keys are:
+   *        - sort: how the results are to be sorted
+   *        - size: window size of the results to return
+   *        - page: page number to start the results on a multi-page result set
+   *        - type: what to search (i.e. primary or job board
+   *        - location: the city/state or zip code to search within.
+   *        - miles: radious in miles from the location to search; ignored if location is not set, empy string, or null.
+   *
    */
-  public function search($query, $frag = TRUE, $location = '', $miles = 5, $sort = 'rd', $type = '', $size = 10, $page = 0) {
-		
+  public function search($query, $frag = TRUE, $options = array() ) {
+
     $params = array(
       'q' => urlencode(trim($query)),
-      'sb' => $sort,
-      'ws' => $size,
-      'pn' => (intval($page) < 1 ? 0 : intval($page)),
+      'sb' => isset($options['sort']) ? $options['sort'] : 'rd',
+      'ws' => isset($options['size']) ? $options['size'] : 10,
+      'pn' => (isset($options['page']) && intval($options['page']) < 1 ? 0 : intval($options['page'])),
     );
 		
-		$type = trim($type);
+	$type = isset($options['type']) && trim($options['type']) != '' ? $options['type'] : NULL;
     
     if (!empty($type) && ($type == FSR_PRIMARY || $type == FSR_JOB_BOARD)) {
       $params['fsr'] = $type;
     }
 
-    if (!is_null($location) && $location != '') {
-      $params['l'] = $location;
+    if (isset($options['location']) && $options['location'] != '') {
+      $params['l'] = $options['location'];
+    } else {
+      $location = NULL;
     }
 
-    if (!is_null($location) && intval($miles) > 0) {
-      $params['mi'] = $miles;
-    }
-
-    if (!empty($page)) {
-      $params['pn'] = intval($page);
+    if (isset($params['l']) && intval($options['miles']) > 0) {
+      $params['mi'] = $options['miles'];
     }
 
     $results = $this->call($params, $frag);

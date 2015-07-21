@@ -162,6 +162,7 @@ class SimplyHiredAPI {
    *        - location: the city/state or zip code to search within.
    *        - miles: radious in miles from the location to search; ignored if location is not set, empy string, or null.
    *
+   * @todo implement the rest of the new parameters for the API.
    */
   public function search($query, $frag = TRUE, $options = array() ) {
 

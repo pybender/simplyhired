@@ -38,41 +38,42 @@ class SimplyHiredAPIXMLParser extends SimplyHiredAPIAbstractParser {
          * Create an object out of each of the XML recordset records
          * for easier handeling.
          */
-        foreach ($record_set->r as $record) {
+        if (isset($record_set->r) && count($record_set->r)) {
+          foreach ($record_set->r as $record) {
 
-          $job = new SimplyHiredJob();
-          $job->setJobTitle((string) $record->jt);
-          $job->setCompany((string) $record->cn, $record->cn['url']);
-          $job->setSource((string) $record->src, $record->src['url']);
+            $job = new SimplyHiredJob();
+            $job->setJobTitle((string) $record->jt);
+            $job->setCompany((string) $record->cn, $record->cn['url']);
+            $job->setSource((string) $record->src, $record->src['url']);
 
 
-          $job->setType((string) $record->ty);
-          $job->setLocation((string) $record->loc);
-          /*
-           * The location has a lot of attributes for extended information, so
-           * set these individually for the job object.
-           */
-          $job->setCity($record->loc['cty']);
-          $job->setState($record->loc['st']);
-          $job->setPostalCode($record->loc['postal']);
-          $job->setCounty($record->loc['county']);
-          $job->setRegion($record->loc['region']);
-          $job->setCountry($record->loc['country']);
-          /*
-           * The XML API doesn't return the latitude and longitude, but be aware
-           * that the job object has these properties available if you should
-           * want to use a geocode library to set these for the postal code
-           * or city/state. To set the latitude/longitude point, call
-           * $obj->setLatLng('latitude value', 'longitude value);
-           */
+            $job->setType((string) $record->ty);
+            $job->setLocation((string) $record->loc);
+            /*
+             * The location has a lot of attributes for extended information, so
+             * set these individually for the job object.
+             */
+            $job->setCity($record->loc['cty']);
+            $job->setState($record->loc['st']);
+            $job->setPostalCode($record->loc['postal']);
+            $job->setCounty($record->loc['county']);
+            $job->setRegion($record->loc['region']);
+            $job->setCountry($record->loc['country']);
+            /*
+             * The XML API doesn't return the latitude and longitude, but be aware
+             * that the job object has these properties available if you should
+             * want to use a geocode library to set these for the postal code
+             * or city/state. To set the latitude/longitude point, call
+             * $obj->setLatLng('latitude value', 'longitude value);
+             */
 
-          $job->setLastSeen((string) $record->ls);
-          $job->setPostDate((string) $record->dp);
-          $job->setExerpt((string) $record->e);
-          $data['items'][] = $job;
-          $idx++;
+            $job->setLastSeen((string) $record->ls);
+            $job->setPostDate((string) $record->dp);
+            $job->setExerpt((string) $record->e);
+            $data['items'][] = $job;
+            $idx++;
+          }
         }
-
       }
       else {
         if ($xml->error['type'] == 'noresults') {

@@ -168,18 +168,15 @@ class SimplyHiredAPI {
    *        - education: education level
    */
   public function search($query, $frag = TRUE, $options = array() ) {
-
     $params = array(
       'q' => urlencode(trim($query)),
       'sb' => isset($options['sort']) ? $options['sort'] : 'rd',
       'ws' => isset($options['size']) ? $options['size'] : 10,
       'pn' => (isset($options['page']) && intval($options['page']) < 1 ? 0 : intval($options['page'])),
     );
-		
-	$type = isset($options['type']) && trim($options['type']) != '' ? $options['type'] : NULL;
     
-    if (isset($type) && ($type == FSR_PRIMARY || $type == FSR_JOB_BOARD)) {
-      $params['fsr'] = $type;
+    if (isset($options['type']) && ($options['type'] == FSR_PRIMARY || $options['type'] == FSR_JOB_BOARD)) {
+      $params['fsr'] = $options['type'];
     }
 
     if (isset($options['location']) && $options['location'] != '') {
@@ -257,7 +254,6 @@ class SimplyHiredAPI {
     $url .= implode('&', $param_string);
     $url = sprintf($url, implode('/', $api_identity));
     $this->url = $url;
-
     $code = 0;
     $message = 'No matches found.';
 

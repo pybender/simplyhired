@@ -158,11 +158,14 @@ class SimplyHiredAPI {
    *        - sort: how the results are to be sorted
    *        - size: window size of the results to return
    *        - page: page number to start the results on a multi-page result set
-   *        - type: what to search (i.e. primary or job board
+   *        - type: what to search (i.e. primary or job board)
    *        - location: the city/state or zip code to search within.
    *        - miles: radious in miles from the location to search; ignored if location is not set, empy string, or null.
-   *
-   * @todo implement the rest of the new parameters for the API.
+   *        - post_date: date posted
+   *        - job_type: what type of job to search for (i.e. contract, full-time, seasonal, etc)
+   *        - employer_type: type of employer (i.e. recruiter or direct hire)
+   *        - special: special filters (i.e. age, dog, green friendly)
+   *        - education: education level
    */
   public function search($query, $frag = TRUE, $options = array() ) {
 
@@ -175,7 +178,7 @@ class SimplyHiredAPI {
 		
 	$type = isset($options['type']) && trim($options['type']) != '' ? $options['type'] : NULL;
     
-    if (!empty($type) && ($type == FSR_PRIMARY || $type == FSR_JOB_BOARD)) {
+    if (isset($type) && ($type == FSR_PRIMARY || $type == FSR_JOB_BOARD)) {
       $params['fsr'] = $type;
     }
 
@@ -185,8 +188,28 @@ class SimplyHiredAPI {
       $location = NULL;
     }
 
-    if (isset($params['l']) && intval($options['miles']) > 0) {
+    if (isset($params['l']) && isset($options['miles']) && intval($options['miles']) > 0) {
       $params['mi'] = $options['miles'];
+    }
+
+    if (isset($options['post_date'])) {
+      $params['fdb'] = $options['post_date'];
+    }
+
+    if (isset($options['job_type'])) {
+      $params['fjt'] = $options['job_type'];
+    }
+
+    if (isset($options['employer'])) {
+      $params['fem'] = $options['employer'];
+    }
+
+    if (isset($options['special'])) {
+      $params['frl'] = $options['special'];
+    }
+
+    if (isset($options['education'])) {
+      $params['fed'] = $options['education'];
     }
 
     $results = $this->call($params, $frag);
@@ -327,6 +350,4 @@ class SimplyHiredAPI {
         return 'api.simplyhired.com';
     }
   }
-
-
 }

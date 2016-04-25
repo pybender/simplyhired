@@ -226,7 +226,7 @@ class SimplyHiredAPI {
     }
     $data = FALSE;
     
-    $url = 'http://' . $this->getAPIBase() . '/a/jobs-api/' . ($this->mode == 'json' ? 'json' : 'xml-v2') . '/%s?';
+    $url = 'http://' . $this->getAPIBase() . '/partner/api/' . ($this->mode == 'json' ? 'json' : 'xml') . '/3/%s?';
     
     $api_identity = array();
 
